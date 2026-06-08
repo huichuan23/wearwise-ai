@@ -12,6 +12,8 @@ https://huichuan23.github.io/wearwise-ai/
 
 This version is a static frontend MVP with no backend, no build step, and no database.
 
+For the full maintenance-oriented architecture and future project structure, see [docs/PROJECT_STRUCTURE.md](./docs/PROJECT_STRUCTURE.md).
+
 ```text
 Browser
   |
