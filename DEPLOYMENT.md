@@ -1,27 +1,47 @@
 # Deploy WearWise AI
 
-This project is a static website. It can be deployed without a build step.
+This project is a Next.js static-export site. It builds to the `out/` directory.
+
+## Deploy to GitHub Pages
+
+Current production URL:
+
+```text
+https://huichuan23.github.io/wearwise-ai/
+```
+
+GitHub Pages deployment is handled by:
+
+```text
+.github/workflows/pages.yml
+```
+
+The workflow runs:
+
+```text
+npm install
+npm run build
+```
+
+With:
+
+```text
+GITHUB_PAGES=true
+```
+
+This enables the `/wearwise-ai` base path in `next.config.mjs`.
 
 ## Deploy to Vercel
 
-1. Create a GitHub repository.
-2. Upload these files to the repository:
-   - `index.html`
-   - `styles.css`
-   - `app.js`
-   - `README.md`
-   - `vercel.json`
-   - `.gitignore`
-   - `.nojekyll`
-3. Go to [Vercel](https://vercel.com/).
-4. Click `Add New` -> `Project`.
-5. Import the GitHub repository.
-6. Use these settings:
-   - Framework Preset: `Other`
-   - Build Command: leave empty
-   - Output Directory: leave empty
-   - Install Command: leave empty
-7. Click `Deploy`.
+1. Go to [Vercel](https://vercel.com/).
+2. Click `Add New` -> `Project`.
+3. Import `huichuan23/wearwise-ai`.
+4. Use these settings:
+   - Framework Preset: `Next.js`
+   - Install Command: `npm install`
+   - Build Command: `npm run build`
+   - Output Directory: `out`
+5. Click `Deploy`.
 
 Vercel will give you a URL like:
 
@@ -50,4 +70,4 @@ That is fine for early demos, but production needs:
 - database storage
 - admin login
 - backend AI tagging
-- Amazon Associates or Product Advertising API integration
+- Amazon Associates or approved Amazon API integration

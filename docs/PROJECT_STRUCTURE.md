@@ -14,34 +14,35 @@ The current MVP focuses on:
 - local admin management for products and outfit formulas
 - collecting feedback memory
 
-The product should grow from a static MVP into a full web app with persistent data, authenticated admin workflows, AI APIs, and Amazon affiliate integrations.
+The product should grow from a Next.js static-export MVP into a full web app with persistent data, authenticated admin workflows, AI APIs, and Amazon affiliate integrations.
 
-## Current Static MVP Architecture
+## Current Next.js Static Export Architecture
 
-The current version is intentionally simple.
+The current version has been migrated to Next.js while preserving the static MVP behavior. It has no backend and no database yet.
 
 ```text
 User Browser
   |
-  |-- index.html
-  |     Static page structure
-  |     Style quiz
-  |     Recommendation cards
-  |     AI product tagger form
-  |     Admin panels
+  |-- app/page.jsx
+  |     Main page state and workflow wiring
+  |
+  |-- components/
+  |     StyleQuiz
+  |     RecommendationCard
+  |     ProductTagger
+  |     ProductPool
+  |     FormulaManager
+  |     FeedbackMemory
+  |
+  |-- lib/
+  |     data/seedData
+  |     recommendation/engine
+  |     ai/productTagger
+  |     storage/localStorage
+  |     utils/tags
   |
   |-- styles.css
-  |     Visual system
-  |     Responsive layout
-  |     Panel/card/form styling
-  |
-  |-- app.js
-  |     Seed product data
-  |     Seed outfit formulas
-  |     Recommendation scoring
-  |     Local AI product tagging heuristic
-  |     Feedback memory
-  |     localStorage persistence
+  |     Shared visual system
   |
   `-- localStorage
         wearwise.products
@@ -54,6 +55,29 @@ User Browser
 
 ```text
 .
+|-- package.json
+|-- next.config.mjs
+|-- jsconfig.json
+|-- app/
+|   |-- layout.jsx
+|   |-- page.jsx
+|   `-- globals.css
+|-- components/
+|   |-- AdminPanels.jsx
+|   |-- ProductTagger.jsx
+|   |-- RecommendationCard.jsx
+|   `-- StyleQuiz.jsx
+|-- lib/
+|   |-- ai/
+|   |   `-- productTagger.js
+|   |-- data/
+|   |   `-- seedData.js
+|   |-- recommendation/
+|   |   `-- engine.js
+|   |-- storage/
+|   |   `-- localStorage.js
+|   `-- utils/
+|       `-- tags.js
 |-- index.html
 |-- styles.css
 |-- app.js
@@ -69,11 +93,13 @@ User Browser
         `-- pages.yml
 ```
 
+`index.html` and `app.js` are legacy static rollback files. New feature work should happen in the Next.js folders.
+
 ## Current Runtime Flow
 
 ```text
 1. User opens the site
-2. app.js loads seed data or saved localStorage data
+2. `app/page.jsx` loads seed data or saved localStorage data
 3. User fills the style quiz
 4. Profile is saved to localStorage
 5. Recommendation engine scores outfit formulas
@@ -245,8 +271,13 @@ GitHub repository
   |-- main branch
   |     source of truth
   |
-  `-- gh-pages branch
-        public GitHub Pages deployment
+  |-- GitHub Actions
+  |     npm install
+  |     npm run build
+  |     upload out/
+  |
+  `-- GitHub Pages
+        public deployment
 ```
 
 Live URL:
@@ -255,11 +286,11 @@ Live URL:
 https://huichuan23.github.io/wearwise-ai/
 ```
 
-Vercel-ready static config is also present through `vercel.json`.
+Vercel-ready Next.js static-export config is also present through `vercel.json`.
 
 ## Recommended Future Architecture
 
-When the MVP is ready for production, migrate to a full app architecture.
+When the MVP is ready for production, keep the Next.js app and add backend services, database storage, and authenticated admin workflows.
 
 ```text
 Browser

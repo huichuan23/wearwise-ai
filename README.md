@@ -10,7 +10,7 @@ https://huichuan23.github.io/wearwise-ai/
 
 ## Current Architecture
 
-This version is a static frontend MVP with no backend, no build step, and no database.
+This version is a Next.js static-export MVP with no backend and no database. It keeps the previous static prototype behavior, but the code is now organized into React components and reusable logic modules.
 
 For the full maintenance-oriented architecture and future project structure, see [docs/PROJECT_STRUCTURE.md](./docs/PROJECT_STRUCTURE.md).
 
@@ -19,9 +19,10 @@ For reusable skills, GitHub projects, and external service research, see [docs/R
 ```text
 Browser
   |
-  |-- index.html      Page structure and product workflow surfaces
-  |-- styles.css      Layout, responsive design, and visual styling
-  |-- app.js          Recommendation logic, AI tagging heuristic, admin tools, local memory
+  |-- app/page.jsx    Main React page and state wiring
+  |-- components/     Style quiz, recommendations, product tagger, admin panels
+  |-- lib/            Seed data, recommendation logic, AI tagger, storage helpers
+  |-- styles.css      Shared visual styling
   |
   `-- localStorage    Products, outfit formulas, user profile, and feedback memory
 ```
@@ -33,6 +34,11 @@ Browser
 |-- index.html
 |-- styles.css
 |-- app.js
+|-- package.json
+|-- next.config.mjs
+|-- app/
+|-- components/
+|-- lib/
 |-- README.md
 |-- DEPLOYMENT.md
 |-- vercel.json
@@ -61,19 +67,20 @@ Browser
 
 ## How To Run Locally
 
-Start a static server in the project folder:
+Install dependencies and start the Next.js dev server:
 
 ```powershell
-python -m http.server 5173 --bind 127.0.0.1
+npm install
+npm run dev
 ```
 
 Open:
 
 ```text
-http://127.0.0.1:5173/
+http://localhost:3000/
 ```
 
-The app is static and has no build step.
+Legacy static files are still present for rollback, but active development should happen in `app/`, `components/`, and `lib/`.
 
 ## How To Use
 
@@ -93,15 +100,15 @@ Current public deployment uses GitHub Pages:
 https://huichuan23.github.io/wearwise-ai/
 ```
 
-The repository also includes `vercel.json`, so it can be deployed to Vercel as a static site.
+The repository also includes `vercel.json`, so it can be deployed to Vercel as a Next.js static-export site.
 
 Vercel settings:
 
 ```text
-Framework Preset: Other
-Build Command: empty
-Output Directory: empty
-Install Command: empty
+Framework Preset: Next.js
+Build Command: npm run build
+Output Directory: out
+Install Command: npm install
 ```
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for details.
@@ -116,15 +123,14 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for details.
 
 ## Future Optimization Plan
 
-1. Migrate to Next.js for component structure and API routes.
-2. Add PostgreSQL and Prisma for shared product, formula, user, and feedback storage.
-3. Replace local product tagging rules with a backend LLM endpoint.
-4. Add admin login and product review workflow.
-5. Add Amazon Associates links or PA API integration.
-6. Add real image upload storage.
-7. Add AI-assisted body profile analysis after the manual body profile flow is validated.
-8. Improve recommendation ranking with user-level preference memory.
-9. Add analytics for conversion, feedback quality, and product click-through.
+1. Add PostgreSQL and Prisma for shared product, formula, user, and feedback storage.
+2. Replace local product tagging rules with a backend LLM endpoint.
+3. Add admin login and product review workflow.
+4. Add Amazon Associates links or approved Amazon API integration.
+5. Add real image upload storage.
+6. Add AI-assisted body profile analysis after the manual body profile flow is validated.
+7. Improve recommendation ranking with user-level preference memory.
+8. Add analytics for conversion, feedback quality, and product click-through.
 
 ## Maintenance Rule
 
