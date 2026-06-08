@@ -14,6 +14,8 @@ This version is a static frontend MVP with no backend, no build step, and no dat
 
 For the full maintenance-oriented architecture and future project structure, see [docs/PROJECT_STRUCTURE.md](./docs/PROJECT_STRUCTURE.md).
 
+For reusable skills, GitHub projects, and external service research, see [docs/RESEARCH_NOTES.md](./docs/RESEARCH_NOTES.md).
+
 ```text
 Browser
   |
