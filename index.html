@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WearWise AI</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Amazon-first personal stylist</p>
+            <h1>WearWise AI</h1>
+            <p class="subhead">Amazon outfits picked for your body, budget, and occasion.</p>
+          </div>
+          <div class="status-strip" aria-label="Prototype status">
+            <span>North America MVP</span>
+            <span>AI tagging</span>
+            <span>Local memory</span>
+          </div>
+        </header>
+
+        <div class="main-grid">
+          <section class="panel quiz-panel" aria-labelledby="quiz-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Style quiz</p>
+                <h2 id="quiz-title">Build a shopper profile</h2>
+              </div>
+              <button class="icon-button" id="resetBtn" type="button" title="Reset quiz" aria-label="Reset quiz">
+                R
+              </button>
+            </div>
+
+            <form id="styleForm" class="quiz-form">
+              <div class="field-row">
+                <label>
+                  Height
+                  <select name="height">
+                    <option value="petite">Petite</option>
+                    <option value="average" selected>Average</option>
+                    <option value="tall">Tall</option>
+                  </select>
+                </label>
+                <label>
+                  Body type
+                  <select name="bodyType">
+                    <option value="pear">Pear</option>
+                    <option value="apple">Apple</option>
+                    <option value="rectangle" selected>Rectangle</option>
+                    <option value="hourglass">Hourglass</option>
+                    <option value="plus">Plus size</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="field-row">
+                <label>
+                  Size range
+                  <select name="sizeRange">
+                    <option value="xs-s">XS-S</option>
+                    <option value="m" selected>M</option>
+                    <option value="l-xl">L-XL</option>
+                    <option value="plus">Plus</option>
+                  </select>
+                </label>
+                <label>
+                  Fit preference
+                  <select name="fitPreference">
+                    <option value="tailored">Tailored</option>
+                    <option value="relaxed" selected>Relaxed</option>
+                    <option value="oversized">Oversized</option>
+                  </select>
+                </label>
+              </div>
+
+              <fieldset>
+                <legend>Occasion</legend>
+                <div class="segmented" data-group="occasion">
+                  <button type="button" data-value="work" class="active">Work</button>
+                  <button type="button" data-value="casual">Casual</button>
+                  <button type="button" data-value="date">Date night</button>
+                  <button type="button" data-value="travel">Travel</button>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Style direction</legend>
+                <div class="segmented wrap" data-group="style">
+                  <button type="button" data-value="minimal" class="active">Minimal</button>
+                  <button type="button" data-value="business">Business casual</button>
+                  <button type="button" data-value="classic">Classic</button>
+                  <button type="button" data-value="athleisure">Athleisure</button>
+                  <button type="button" data-value="preppy">Preppy</button>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Budget per outfit</legend>
+                <div class="segmented" data-group="budget">
+                  <button type="button" data-value="75">Under $75</button>
+                  <button type="button" data-value="150" class="active">$75-$150</button>
+                  <button type="button" data-value="250">$150-$250</button>
+                </div>
+              </fieldset>
+
+              <div class="field-row">
+                <label>
+                  Work dress code
+                  <select name="dressCode">
+                    <option value="casual">Casual</option>
+                    <option value="business casual" selected>Business casual</option>
+                    <option value="formal">Formal</option>
+                  </select>
+                </label>
+                <label>
+                  Climate
+                  <select name="climate">
+                    <option value="warm">Warm</option>
+                    <option value="mixed" selected>Mixed</option>
+                    <option value="cold">Cold</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="field-row">
+                <label>
+                  Goal
+                  <select name="goal">
+                    <option value="look taller">Look taller</option>
+                    <option value="look polished" selected>Look polished</option>
+                    <option value="feel comfortable">Feel comfortable</option>
+                    <option value="balance proportions">Balance proportions</option>
+                  </select>
+                </label>
+                <label>
+                  Shoes
+                  <select name="shoePreference">
+                    <option value="flats only">Flats only</option>
+                    <option value="low heel">Low heel</option>
+                    <option value="any" selected>Any</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                Favorite colors
+                <input name="colors" type="text" placeholder="Example: black, navy, white" />
+              </label>
+
+              <label>
+                Avoid
+                <input name="avoid" type="text" placeholder="Example: tight tops, beige, heels" />
+              </label>
+
+              <label>
+                Optional photo check
+                <input name="photo" type="file" accept="image/*" />
+              </label>
+
+              <button class="primary-button" type="submit">Generate 3 outfits</button>
+            </form>
+          </section>
+
+          <section class="panel results-panel" aria-labelledby="results-title">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Recommendations</p>
+                <h2 id="results-title">Amazon-ready outfit cards</h2>
+              </div>
+              <span class="count-pill" id="resultCount">3 outfits</span>
+            </div>
+            <div id="profileSummary" class="profile-summary"></div>
+            <div id="outfitList" class="outfit-list"></div>
+          </section>
+        </div>
+
+        <section class="panel tagger-panel" aria-labelledby="tagger-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">AI operations</p>
+              <h2 id="tagger-title">AI product tagger</h2>
+            </div>
+            <span class="count-pill">Amazon intake</span>
+          </div>
+
+          <form id="taggerForm" class="tagger-form">
+            <div class="field-row three">
+              <label>
+                Product title
+                <input name="title" type="text" placeholder="Women's High Waisted Wide Leg Trousers" required />
+              </label>
+              <label>
+                ASIN
+                <input name="asin" type="text" placeholder="B0XXXXXXX" />
+              </label>
+              <label>
+                Estimated price
+                <input name="price" type="number" min="0" placeholder="39" />
+              </label>
+            </div>
+            <label>
+              Amazon URL
+              <input name="amazonUrl" type="url" placeholder="https://www.amazon.com/dp/..." />
+            </label>
+            <label>
+              Product description
+              <textarea
+                name="description"
+                rows="3"
+                placeholder="Paste Amazon bullets, material, fit notes, and review clues."
+              ></textarea>
+            </label>
+            <div class="tagger-actions">
+              <button class="primary-button" type="submit">AI tag product</button>
+              <button class="action-button" id="addTaggedProductBtn" type="button" disabled>Add tagged product</button>
+            </div>
+          </form>
+          <div id="taggerOutput" class="tagger-output"></div>
+        </section>
+
+        <section class="ops-grid">
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Admin</p>
+                <h2>Product pool</h2>
+              </div>
+              <button class="action-button small" id="resetProductsBtn" type="button">Reset</button>
+            </div>
+            <div id="productPool" class="compact-list"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Admin</p>
+                <h2>Outfit formulas</h2>
+              </div>
+            </div>
+            <form id="formulaForm" class="mini-form">
+              <input name="name" type="text" placeholder="Formula name" required />
+              <div class="field-row">
+                <select name="occasion">
+                  <option value="work">Work</option>
+                  <option value="casual">Casual</option>
+                  <option value="date">Date</option>
+                  <option value="travel">Travel</option>
+                </select>
+                <select name="style">
+                  <option value="minimal">Minimal</option>
+                  <option value="business">Business</option>
+                  <option value="classic">Classic</option>
+                  <option value="athleisure">Athleisure</option>
+                  <option value="preppy">Preppy</option>
+                </select>
+              </div>
+              <input name="note" type="text" placeholder="Why this formula works" />
+              <button class="action-button" type="submit">Add formula</button>
+            </form>
+            <div id="formulaPool" class="compact-list"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Learning loop</p>
+                <h2>Feedback memory</h2>
+              </div>
+              <button class="action-button small" id="clearFeedbackBtn" type="button">Clear</button>
+            </div>
+            <div id="feedbackList" class="feedback-list"></div>
+          </div>
+        </section>
+
+        <section class="compliance-note">
+          Amazon prices are estimated in this prototype. Current price and availability should be checked on Amazon.
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
