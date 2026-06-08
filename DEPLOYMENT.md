@@ -31,6 +31,8 @@ GITHUB_PAGES=true
 
 This enables the `/wearwise-ai` base path in `next.config.mjs`.
 
+After building, the workflow publishes the generated `out/` directory to the `gh-pages` branch, which is the current GitHub Pages source for the live site.
+
 The `public/.nojekyll` file is copied into `out/.nojekyll` during the Next.js static export so GitHub Pages serves the `_next/` asset directory correctly.
 
 ## Deploy to Vercel
