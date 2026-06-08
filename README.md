@@ -35,7 +35,9 @@ Browser
 |-- styles.css
 |-- app.js
 |-- package.json
+|-- package-lock.json
 |-- next.config.mjs
+|-- public/
 |-- app/
 |-- components/
 |-- lib/
@@ -102,13 +104,15 @@ https://huichuan23.github.io/wearwise-ai/
 
 The repository also includes `vercel.json`, so it can be deployed to Vercel as a Next.js static-export site.
 
+GitHub Pages builds with `npm ci`, exports to `out/`, and includes `public/.nojekyll` so the `_next/` asset directory is served correctly.
+
 Vercel settings:
 
 ```text
 Framework Preset: Next.js
 Build Command: npm run build
 Output Directory: out
-Install Command: npm install
+Install Command: npm ci
 ```
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for details.

@@ -19,7 +19,7 @@ GitHub Pages deployment is handled by:
 The workflow runs:
 
 ```text
-npm install
+npm ci
 npm run build
 ```
 
@@ -31,6 +31,8 @@ GITHUB_PAGES=true
 
 This enables the `/wearwise-ai` base path in `next.config.mjs`.
 
+The `public/.nojekyll` file is copied into `out/.nojekyll` during the Next.js static export so GitHub Pages serves the `_next/` asset directory correctly.
+
 ## Deploy to Vercel
 
 1. Go to [Vercel](https://vercel.com/).
@@ -38,7 +40,7 @@ This enables the `/wearwise-ai` base path in `next.config.mjs`.
 3. Import `huichuan23/wearwise-ai`.
 4. Use these settings:
    - Framework Preset: `Next.js`
-   - Install Command: `npm install`
+   - Install Command: `npm ci`
    - Build Command: `npm run build`
    - Output Directory: `out`
 5. Click `Deploy`.
